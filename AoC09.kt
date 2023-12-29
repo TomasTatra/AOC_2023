@@ -12,7 +12,7 @@ fun main() {
     println(sum)
 }
 
-fun backtracking(input: List<Long>): Long {
+private fun backtracking(input: List<Long>): Long {
     val numbers = mutableListOf<Long>()
     for (index in 0..<input.size - 1) {
         numbers.add(input[index + 1] - input[index])
@@ -22,7 +22,7 @@ fun backtracking(input: List<Long>): Long {
     return input.last() + backtracking(numbers)
 }
 
-fun backtrackingBackward(input: List<Long>): Long {
+private fun backtrackingBackward(input: List<Long>): Long {
     val numbers = mutableListOf<Long>()
     for (index in 0..<input.size - 1) {
         numbers.add(input[index + 1] - input[index])

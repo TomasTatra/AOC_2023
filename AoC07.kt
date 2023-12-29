@@ -1,8 +1,8 @@
 import java.io.File
 import java.io.InputStream
 
-val cards = listOf("J", "2", "3", "4", "5", "6", "7", "8", "9", "T", "Q", "K", "A")
-val translate = listOf("A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M")
+private val cards = listOf("J", "2", "3", "4", "5", "6", "7", "8", "9", "T", "Q", "K", "A")
+private val translate = listOf("A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M")
 
 fun main() {
     val inputStream: InputStream = File("example.txt").inputStream()
@@ -44,7 +44,7 @@ fun valueOf(input: String): Int {
     return -1 //1
 }
 
-fun valueOfSecond(input: String): Int {
+private fun valueOfSecond(input: String): Int {
     val value = valueOf(input)
     val countJ = input.count { e -> e.toString() == "J" }
     when (countJ) {

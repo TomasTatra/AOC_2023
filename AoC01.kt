@@ -1,7 +1,7 @@
 import java.io.File
 import java.io.InputStream
 
-fun main(args: Array<String>) {
+fun main() {
     val digitString = listOf("one", "two", "three", "four", "five", "six", "seven", "eight", "nine")
     val digitNumber = listOf("1", "2", "3", "4", "5", "6", "7", "8", "9")
 
@@ -19,15 +19,14 @@ fun main(args: Array<String>) {
             continue
         }
         var number = ""
-        if (replaceString1.first < replaceNumber1!!.first)
-            number += digitNumber[digitString.indexOf(replaceString1.second)]
+        number += if (replaceString1.first < replaceNumber1!!.first)
+            digitNumber[digitString.indexOf(replaceString1.second)]
         else
-            number += replaceNumber1.second
-
-        if (replaceString2!!.first > replaceNumber2!!.first)
-            number += digitNumber[digitString.indexOf(replaceString2.second)]
+            replaceNumber1.second
+        number += if (replaceString2!!.first > replaceNumber2!!.first)
+            digitNumber[digitString.indexOf(replaceString2.second)]
         else
-            number += replaceNumber2.second
+            replaceNumber2.second
 
         count += number.toInt()
     }

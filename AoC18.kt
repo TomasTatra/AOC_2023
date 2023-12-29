@@ -2,7 +2,7 @@ import java.io.File
 import java.io.InputStream
 import kotlin.math.abs
 
-val mapOfMove = mapOf(0 to Pair(0, 1), 2 to Pair(0, -1), 1 to Pair(1, 0), 3 to Pair(-1, 0))
+private val mapOfMove = mapOf(0 to Pair(0, 1), 2 to Pair(0, -1), 1 to Pair(1, 0), 3 to Pair(-1, 0))
 
 fun main() {
     val inputStream: InputStream = File("example.txt").inputStream()
@@ -27,7 +27,7 @@ fun main() {
     println(dig(graph) + distance.shr(1) + 1)
 }
 
-fun dig(graph: MutableList<List<Long>>): Long {
+private fun dig(graph: MutableList<List<Long>>): Long {
     var sum:Long = 0
     for (index in graph.indices) {
         val x1 = graph[index][0]

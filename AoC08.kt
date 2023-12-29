@@ -41,7 +41,7 @@ fun main() {
     println(actual)
 }
 
-fun notEnd(steps: MutableList<Int>, actual: Long): Boolean {
+private fun notEnd(steps: MutableList<Int>, actual: Long): Boolean {
     for (i in steps) {
         if (actual % i != (0).toLong())
             return true

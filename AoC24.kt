@@ -1,4 +1,5 @@
 import java.io.File
+import com.microsoft.z3.*
 
 val range = Range(200000000000000, 400000000000000)
 
@@ -12,12 +13,12 @@ class Range(minI: Long, maxI: Long) {
 }
 
 class Rock(pI: List<Long>, vI: List<Long>) {
-    private val pX: Double = pI[0].toDouble()
-    private val pY: Double = pI[1].toDouble()
-    private val pZ: Double = pI[2].toDouble()
-    private val vX: Double = vI[0].toDouble()
-    private val vY: Double = vI[1].toDouble()
-    private val vZ: Double = vI[2].toDouble()
+    val pX: Double = pI[0].toDouble()
+    val pY: Double = pI[1].toDouble()
+    val pZ: Double = pI[2].toDouble()
+    val vX: Double = vI[0].toDouble()
+    val vY: Double = vI[1].toDouble()
+    val vZ: Double = vI[2].toDouble()
 
     fun collide(rock: Rock): Boolean {
         val m1: Double = (pY + vY - pY) / (pX + vX - pX)
@@ -47,14 +48,38 @@ fun main() {
         val vector = row[1].split(", ").map { e -> e.trim().toLong() }
         rocks.add(Rock(position, vector))
     }
+
     var sum = 0
     for (index1 in rocks.indices) {
         for (index2 in index1 + 1..<rocks.size){
             if (rocks[index1].collide(rocks[index2])) {
-                println("$index1 & $index2")
                 sum++
             }
         }
     }
-    println(sum)
+    println("Part 1: $sum")
+
+    val ctx = Context()
+    val solver = ctx.mkSolver()
+    val x = ctx.mkIntConst("x")
+    val y = ctx.mkIntConst("y")
+    val z = ctx.mkIntConst("z")
+    val vx = ctx.mkIntConst("vx")
+    val vy = ctx.mkIntConst("vy")
+    val vz = ctx.mkIntConst("vz")
+
+    for (i in 0 .. 10) { // we need min three rocks .. with more rocks it will find faster
+        val h = rocks[i]
+        val t = ctx.mkIntConst("t$i")
+        solver.add(ctx.mkEq(ctx.mkAdd(x, ctx.mkMul(vx, t)), ctx.mkAdd(ctx.mkInt(h.pX.toLong()), ctx.mkMul(ctx.mkInt(h.vX.toLong()), t))))
+        solver.add(ctx.mkEq(ctx.mkAdd(y, ctx.mkMul(vy, t)), ctx.mkAdd(ctx.mkInt(h.pY.toLong()), ctx.mkMul(ctx.mkInt(h.vY.toLong()), t))))
+        solver.add(ctx.mkEq(ctx.mkAdd(z, ctx.mkMul(vz, t)), ctx.mkAdd(ctx.mkInt(h.pZ.toLong()), ctx.mkMul(ctx.mkInt(h.vZ.toLong()), t))))
+    }
+
+    print("Part 2: ")
+    if (solver.check() == Status.SATISFIABLE) {
+        println(solver.model.eval(ctx.mkAdd(x, ctx.mkAdd(y, z)), false))
+    } else {
+        println("No solution found.")
+    }
 }

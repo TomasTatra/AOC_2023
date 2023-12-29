@@ -1,8 +1,8 @@
 import java.io.File
 import java.io.InputStream
 
-val num = listOf("0", "1", "2", "3", "4", "5", "6", "7", "8", "9")
-lateinit var matrix: MutableList<MutableList<String>>
+private val num = listOf("0", "1", "2", "3", "4", "5", "6", "7", "8", "9")
+private lateinit var matrix: MutableList<MutableList<String>>
 
 fun main() {
     val inputStream: InputStream = File("example.txt").inputStream()
@@ -37,7 +37,7 @@ fun main() {
 
 private fun valid(found: Int, actual: String) = found != 0 && actual.toInt() != found
 
-fun find(i: Int, j: Int): Int {
+private fun find(i: Int, j: Int): Int {
     for (x in i - 1..i + 1) {
         for (y in j - 1..j + 1) {
             if (x < 0 || x > matrix.size - 1 || y < 0 || y > matrix[x].size - 1)
@@ -52,7 +52,7 @@ fun find(i: Int, j: Int): Int {
     return 0
 }
 
-fun findNumber(x: Int, y: Int): Int {
+private fun findNumber(x: Int, y: Int): Int {
     val numbers = mutableListOf<Int>()
     for (xx in x - 1..x + 1) {
         for (yy in y - 1..y + 1) {

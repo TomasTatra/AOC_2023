@@ -2,7 +2,7 @@ import java.io.File
 import java.io.InputStream
 import java.lang.IndexOutOfBoundsException
 
-val direction = listOf(Pair(-1, 0), Pair(0, -1), Pair(1, 0), Pair(0, 1))
+private val direction = listOf(Pair(-1, 0), Pair(0, -1), Pair(1, 0), Pair(0, 1))
 
 fun main() {
     val inputStream: InputStream = File("example.txt").inputStream()

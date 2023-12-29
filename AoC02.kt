@@ -4,16 +4,9 @@ import java.io.InputStream
 fun main() {
     val inputStream: InputStream = File("example.txt").inputStream()
     val stringArray = inputStream.bufferedReader().use { it.readText().split("\n") }
-
-    /*val totalRed = 12
-    val totalGreen = 13
-    val totalBlue = 14
-    var sumOfID = 0*/
     var sumOfCube = 0
-
     for (row in stringArray) {
         val line = row.split(": ")
-        //val key = line[0].replace("Game ", "").toInt()
         val sets = line[1].split("; ")
         var maxRed = 0
         var maxGreen = 0
@@ -39,10 +32,7 @@ fun main() {
             if (blue > maxBlue)
                 maxBlue = blue
         }
-        /*if (maxRed <= totalRed && maxGreen <= totalGreen && maxBlue <= totalBlue)
-            sumOfID += key*/
         sumOfCube += maxRed*maxGreen*maxBlue
     }
     println(sumOfCube)
-    //println(sumOfID)
 }
